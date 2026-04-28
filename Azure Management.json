@@ -1,0 +1,248 @@
+{
+    "schema": {
+        "crud_objects": {
+            "labs": {
+                "operations": {
+                    "labsList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "subscriptions",
+                            "iterator": "subscriptionId",
+                            "path": "subscriptions/{iterator}/providers/Microsoft.DevTestLab/labs?api-version=2018-09-15",
+                            "base": {
+                                "subscriptionId": "{iterator}"
+                            }
+                            
+                        },
+                        "processing_options": {
+                            "output_field": "value"
+                        }
+                    }
+                },
+                "key": "id",
+                "resources": {
+                    "id": "string*",
+                    "subscriptionId": "string*",
+                    "name": "string*",
+                    "type": "string*",
+                    "location": "string*",
+                    "tags": {
+                        "environment": "_:string*",
+                        "team": "_:string*"
+                    },
+                    "properties": {
+                        "defaultStorageAccount": "_:string*",
+                        "artifactsStorageAccount": "_:string*",
+                        "defaultPremiumStorageAccount": "_:string*",
+                        "labStorageType": "_:string*",
+                        "createdDate": "_:string*",
+                        "premiumDataDisks": "_:string*",
+                        "environmentPermission": "_:string*",
+                        "provisioningState": "_:string*",
+                        "uniqueIdentifier": "_:string*"
+                    }
+                }
+            },
+            "subscriptions": {
+                "operations": {
+                    "subscriptionsList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "normal",
+                            "path": "subscriptions?api-version=2022-12-01"
+                            
+                        },
+                        "processing_options": {
+                            "output_field": "value"
+                        }
+                    }
+                },
+                "key": "id",
+                "resources": {
+                    "id": "string*",
+                    "subscriptionId": "string*",
+                    "displayName": "string*",
+                    "tenantId": "string*",
+                    "state": "string*",
+                    "authorizationSource": "string*",
+                    "subscriptionPolicies": {
+                        "locationPlacementId": "_:string*",
+                        "quotaId": "_:string*",
+                        "spendingLimit": "_:string*"
+                    },
+                    "managedByTenants": [
+                        { 
+                            "tenantId": "string*"
+                        }
+                    ],
+                    "tags": {
+                        "environment": "_:string*",
+                        "owner": "_:string*"
+                    }
+                }
+            },
+            "resourceGroups": {
+                "operations": {
+                    "resourceGroupsList": {
+                        "method": "get",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "subscriptions",
+                            "iterator": "subscriptionId",
+                            "path": "subscriptions/{iterator}/resourcegroups?api-version=2021-04-01",
+                            "base": {
+                                "subscriptionId": "{iterator}"
+                            }
+                        },
+                        "processing_options": {
+                            "output_field": "value"
+                        }
+                    }
+                },
+                "key": "id",
+                "resources": {
+                    "id": "string*",
+                    "subscriptionId": "string*",
+                    "name": "string*",
+                    "type": "string*",
+                    "location": "string*",
+                    "tags": {
+                        "environment": "_:string*",
+                        "team": "_:string*"
+                    },
+                    "properties": {
+                        "provisioningState": "string*"
+                    }
+                }
+            },
+            "virtual_machines": {
+                "operations": {
+                    "virtual_machinesList": {
+                        "method": "get",
+                        "pagination": "none",
+                        "call": {
+                            "mode": "iteration",
+                            "table": "resourceGroups",
+                            "iterator": "name",
+                            "iterator_columns": ["subscriptionId"],
+                            "path": "subscriptions/{subscriptionId}/resourceGroups/{iterator}/providers/Microsoft.Compute/virtualMachines?api-version=2024-03-01"
+                        },
+                        "selector": {
+                            "mode": "none"
+                        },
+                        "maxSessionCount": 10,
+                        "processing_options": {
+                            "output_field": "value"
+                        },
+                        "warning_only": [ 400 ]
+                    }
+                },
+                "key": "id",
+                "resources": {
+                    "name": "string*",
+                    "id": "string*",
+                    "type": "string*",
+                    "location": "string*",
+                    "tags": {
+                        "hidden-DevTestLabs-LabUId": "_:string*",
+                        "hidden-DevTestLabs-LogicalResourceUId": "_:string*"
+                    },
+                    "properties": {
+                        "hardwareProfile": {
+                            "vmSize": "_:string*"
+                        },
+                        "provisioningState": "_:string*",
+                        "vmId": "_:string*",
+                        "availabilitySet": {
+                            "id": "_:string*"
+                        },
+                            "storageProfile": {
+                                "osDisk": {
+                                        "osType": "_:string*",
+                                        "name": "_:string*",
+                                        "createOption": "_:string*",
+                                        "caching": "_:string*",
+                                        "managedDisk": {
+                                        "storageAccountType": "_:string*",
+                                        "id": "_:string*"
+                                    },
+                                    "deleteOption": "_:string*",
+                                    "diskSizeGB": "_:string*"
+                                },
+                                "dataDisks": "_:string*",
+                                "diskControllerType": "_:string*"
+                        },
+                        "networkProfile": {
+                            "networkInterfaces": [
+                                {
+                                "id": "string*"
+                                }
+                            ]
+                        },
+                        "timeCreated": "string*"
+                    },
+                    "etag": "string*",
+                    "resources": [
+                        {
+                            "id": "string*"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "rest": {
+        "config": {
+            "baseUrl": "https://management.azure.com/",
+            "get": {
+                "maxPageCount": 500
+            },
+            "authentication": "certificate",
+            "call_handling": "azure",
+            "test_connection": {
+                "url": "/subscriptions?api-version=2022-12-01"
+            }
+        },
+        "authOptions": {
+            "scopes": [
+                "https://management.azure.com/.default"
+            ],
+            "authUrl": "https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/token",
+            "type": "signed-jwt",
+            "postData": {
+                "client_id": {
+                    "name": "clientId"
+                },
+                "scope": {
+                    "name": "scope"
+                },
+                "client_assertion_type": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                "client_assertion": {
+                    "name": "JWT"
+                },
+                "grant_type": "client_credentials"
+            },
+            "JWT": {
+                "aud": {
+                    "name": "endpoint"
+                },
+                "exp": {
+                    "name": "oneHour"
+                },
+                "iss": {
+                    "name": "clientId"
+                },
+                "jti": {
+                    "name": "guid"
+                },
+                "nbf": {
+                    "name": "now"
+                },
+                "sub": {
+                    "name": "clientId"
+                }
+            }
+        }
+    }
+}
