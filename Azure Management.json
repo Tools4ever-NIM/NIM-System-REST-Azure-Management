@@ -121,12 +121,17 @@
                     "virtual_machinesList": {
                         "method": "get",
                         "pagination": "none",
+                        "maxPageCount": -1,
                         "call": {
                             "mode": "iteration",
                             "table": "resourceGroups",
                             "iterator": "name",
                             "iterator_columns": ["subscriptionId"],
-                            "path": "subscriptions/{subscriptionId}/resourceGroups/{iterator}/providers/Microsoft.Compute/virtualMachines?api-version=2024-03-01"
+                            "path": "subscriptions/{subscriptionId}/resourceGroups/{iterator}/providers/Microsoft.Compute/virtualMachines?api-version=2024-03-01",
+                            "base": {
+                                "resourceGroupName": "{iterator}",
+                                "subscriptionId": "{subscriptionId}"
+                            }
                         },
                         "selector": {
                             "mode": "none"
@@ -136,6 +141,22 @@
                             "output_field": "value"
                         },
                         "warning_only": [ 400 ]
+                    },
+                    "virtual_machinesStart": {
+                        "method": "post",
+                        "call": {
+                            "mode": "normal",
+                            "path": "subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{name}/start?api-version=2024-03-01"
+                        },
+                        "body": {
+                            "_nim_merge_attributes_": false
+                        },
+                        "resource_allowance_default": "prohibited",
+                        "resource_mandatory": [
+                            "resourceGroupName",
+                            "name",
+                            "subscriptionId"
+                        ]
                     }
                 },
                 "key": "id",
@@ -144,6 +165,8 @@
                     "id": "string*",
                     "type": "string*",
                     "location": "string*",
+                    "resourceGroupName": "string*",
+                    "subscriptionId": "string*",
                     "tags": {
                         "hidden-DevTestLabs-LabUId": "_:string*",
                         "hidden-DevTestLabs-LogicalResourceUId": "_:string*"
